@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+	 <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./bootstrap/css/lightslider.css" />
+    <script src="./bootstrap/js/jquery-1.9.1.min.js"></script>
+
+    <script src="./bootstrap/js/angular-1.7.2.min.js"></script>
+    <script src="./js/app.js?v=1.32"></script>
+
+</head>
+
+<body style="overflow-x: hidden;" ng-app="myApp" ng-controller="myCtrl">
+
+    <div style="position: fixed; top: 0px; bottom: 0px; right: 0px; left: 0px;width:1080px; background-image: url('./images/menu_page_bg.png?v={{ImgVersion}}'); background-repeat: no-repeat; margin: 0 auto">
+
+        <div style="padding-top: 80px">
+            <img src="./images/promotion_1.png?v={{ImgVersion}}" />
+        </div>
+    <div class="container-fluid" ng-hide="isShowDetail">
+        <div class=row style="padding-top:60px">
+
+            <div class=col-sm-12 style="text-align:center;verticle-algin:middle">
+                <a href="./item.html?menuName=Chefs&parentURL=menu&v={{ImgVersion}}">
+                    <img src="./images/menu_chefs.png?v={{ImgVersion}}" />
+                </a>
+            </div>
+        </div>
+        <div class=row style="padding-top: 60px; margin-right: 30px; ">
+          
+                <div class=col-sm-6 style="text-align:right">
+                    <a href="./menu2.html?menuName=Appetizer&v={{ImgVersion}}">
+                        <img src="./images/menu_appetizer.png?v={{ImgVersion}}" />
+                    </a>
+                </div>
+
+
+
+                <div class=col-sm-6 style="text-align:right;verticle-algin:middle">
+                    <a href="./item.html?menuName=BBQ&parentURL=menu&v={{ImgVersion}}">
+                        <img src="./images/menu_BBQ.png?v={{ImgVersion}}" />
+                    </a>
+                </div>
+           
+            </div>
+        <div class=row style="padding-top:60px;margin-right:30px">
+            <div class=col-sm-6 style="text-align:right">
+                <a href="./menu2.html?menuName=Seafood&v={{ImgVersion}}">
+                    <img src="./images/menu_seafood.png?v={{ImgVersion}}" class="menuImg">
+                </a>
+            </div>
+
+            <div class=col-sm-6 style="text-align:right;verticle-algin:middle">
+                <a href="./menu2.html?menuName=Meat&v={{ImgVersion}}">
+                    <img src="./images/menu_meat.png?v={{ImgVersion}}" class="menuImg">
+                </a>
+            </div>
+        </div>
+        <div class=row style="padding-top: 60px; margin-right: 30px; ">
+            <div class=col-sm-6 style="text-align:right">
+                <a href="./menu2.html?menuName=SideDish&v={{ImgVersion}}">
+                    <img src="./images/menu_sidedished.png?v={{ImgVersion}}" class="menuImg">
+                </a>
+            </div>
+
+            <div class=col-sm-6 style="text-align:right;verticle-algin:middle">
+                <a href="./item.html?menuName=Desert&parentURL=menu&v={{ImgVersion}}">
+                    <img src="./images/menu_desert.png?v={{ImgVersion}}" class="menuImg">
+                </a>
+            </div>
+        </div>
+      </div>
+
+        
+    </div>
+
+  
+    <script language="JavaScript">
+        var idleTime = 0;
+        window.onload = function () {
+            var idleInterval = setInterval(timerIncrement, 1000); // 1 minute
+
+            //Zero the idle timer on mouse movement.
+            $(this).mousemove(function (e) {
+                idleTime = 0;
+            });
+            $(this).keypress(function (e) {
+                idleTime = 0;
+            });
+            document.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+            }, false);
+            document.body.addEventListener('touchstart', function (e) {
+                idleTime = 0;
+            }, false);
+
+         
+        }
+        function timerIncrement() {
+            idleTime = idleTime + 1;
+            if (idleTime > 30) { // 15 seconds
+                window.location.href = './index.html';
+            }
+            function disabledEvent(e) {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                } else if (window.event) {
+                    window.event.cancelBubble = true;
+                }
+                e.preventDefault();
+                return false;
+            }
+        };
+    </script>
+</body>
+</html>

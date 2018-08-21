@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+	 <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet"  href="./bootstrap/css/lightslider.css"/>
+    <script src="./bootstrap/js/jquery-1.9.1.min.js"></script>
+    <script src="./bootstrap/js/lightslider.js"></script>
+    <script src="./bootstrap/js/angular-1.7.2.min.js"></script>
+    <script src="./js/app.js?v=1.32"></script>
+    <base href="/" /> <!--specially for root folder i.e mostly website.-->
+    <style>
+        .middle_div {
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+
+<body style="overflow-x: hidden;" ng-app="myApp" ng-controller="ItemPage">
+
+    <div style="position: fixed; top: 0px; bottom: 0px; right: 0px; left: 0px; width: 1080px; background-image: url('./images/itempage_bg.png?v={{ImgVersion}}'); background-repeat: no-repeat; margin: 0 auto">
+
+        <div style="padding-top: 80px">
+            <img src="./images/promotion_1.png" />
+        </div>
+        <div class="container-fluid">
+            <div class="row" style="padding-top: 5px">
+
+                <div class=col-sm-1 style="text-align:left;verticle-algin:middle">
+                    <a href="{{parentURL}}" target="_self" ng-show="parentURL.indexOf('menu2')>-1">
+                        <img src="./images/btn_return.png">
+                    </a>
+                </div>
+
+                <div class=col-sm-10 style="text-align: center;height:100px">
+                    <img ng-src="{{ItemHeaderImg}}" class="middle_div">
+                </div>
+                <div class=col-sm-1 style="text-align:right;verticle-algin:middle">
+                    <a href="menu.html" target="_self">
+                        <img src="./images/btn_back_new.png">
+                    </a>
+                </div>
+            </div>
+            <div class="demo" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="item">
+                    <div class="clearfix" style="max-width:1080px;">
+                        <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                            <li ng-repeat="x in ImageList| orderBy:'sort_id'">
+                                <img ng-src="{{x.imageName}}" style="width: 1080px" />
+                            </li>
+                            <!--<li>
+                            <img src="./images/item_pizza_1.png?v={{ImgVersion}}" style="width: 1080px" />
+                        </li>
+                        <li>
+                            <img src="./images/item_pizza_2.png?v={{ImgVersion}}" style="width: 1080px" />
+                        </li>-->
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+   
+  
+    <script>
+        var idleTime = 0;
+        window.onload = function () {
+            var idleInterval = setInterval(timerIncrement, 1000); // 1 minute
+
+            //Zero the idle timer on mouse movement.
+            $(this).mousemove(function (e) {
+                idleTime = 0;
+            });
+            $(this).keypress(function (e) {
+                idleTime = 0;
+            });
+            document.body.addEventListener('touchstart', function (e) {
+                idleTime = 0;
+            }, false);
+            document.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+            }, false);
+
+            function disabledEvent(e) {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                } else if (window.event) {
+                    window.event.cancelBubble = true;
+                }
+                e.preventDefault();
+                return false;
+            }
+            function timerIncrement() {
+                idleTime = idleTime + 1;
+                if (idleTime > 60) { // 15 seconds
+                    window.location.href = './index.html';
+                }
+            };
+            $(document).ready(function () {
+                $("#content-slider").lightSlider({
+                    loop: false,
+                    keyPress: false
+                });
+                $('#image-gallery').lightSlider({
+                    gallery: false,
+                    item: 1,
+                    thumbItem: 0,
+                    slideMargin: 100,
+                    speed: 500,
+                    auto: false,
+                    loop: false,
+                    onSliderLoad: function () {
+                        $('#image-gallery').removeClass('cS-hidden');
+                        $('div.lSAction').find('a.lSPrev').hide();
+                    },
+                    onBeforeSlide: function ($el, scene) {
+                     
+                        $('div.lSAction').find('a.lSNext').show();
+                        $('div.lSAction').find('a.lSPrev').show();
+                        var TotalScence = $('#image-gallery li').length;
+                  
+                        if (scene == TotalScence-1) {
+                            $('div.lSAction').find('a.lSNext').hide();
+                          
+
+                        } else if (scene == 0) {
+                            $('div.lSAction').find('a.lSPrev').hide();
+                        }
+                      
+                    }
+                });
+
+                $('.lSPager').remove();
+            });
+        }
+    </script>
+</body>
+</html>
